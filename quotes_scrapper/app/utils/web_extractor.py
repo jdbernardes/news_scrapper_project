@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def web_data_extractor_2(url: str) -> List[Dict[str, str]]:
+def web_data_extractor(url: str) -> List[Dict[str, str]]:
     extracted_data: List[Dict[str, str]] = []
 
     # Faz a requisição para a página

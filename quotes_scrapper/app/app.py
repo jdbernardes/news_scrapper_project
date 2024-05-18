@@ -1,6 +1,6 @@
 from typing import Annotated
 from fastapi import FastAPI, Query
-
+from app.scrapper.scrapper import Scrapper
 
 class MyFastAPIApp:
     def __init__(self):
@@ -15,9 +15,13 @@ class MyFastAPIApp:
         async def read_root():
             return {"message": "Hello, World!"}
 
-        @self.app.get("/news/latest")
-        async def read_item(item_id: int, q: str = None):
-            return {"message": "These are the latest news"}
+        @self.app.get("/quotes")
+        async def read_item():
+            url = "https://quotes.toscrape.com/"
+            quotes = Scrapper(url)
+            response = quotes.scrape_data()
+            
+            return response
         
         @self.app.get("/news/all")
         async def read_producao(ano: Annotated[str | None, Query(min_length=4, max_length=4)] = None):
